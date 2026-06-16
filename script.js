@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 4. LÓGICA DEL QUIZ DE ASESORÍA VIRTUAL
+    // 4. LÓGICA DEL QUIZ DE LOOK PERSONALIZADO
     // ==========================================
     const pasosQuiz = document.querySelectorAll('.quiz-step');
     let respuestasQuiz = {};
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     document.getElementById('formulario-cita')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const numeroWhatsAppSariStudio = "52XXXXXXXXXX"; // Poner el cel real de Mafer aquí
+        const numeroWhatsAppSariStudio = "52XXXXXXXXXX"; // Poner teléfono real de Mafer aquí
 
         const nombreCliente = document.getElementById('nombre').value.trim();
         const whatsappCliente = document.getElementById('whatsapp').value.trim();

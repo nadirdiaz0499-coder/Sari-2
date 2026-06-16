@@ -18,14 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { document.querySelector('.hero .reveal')?.classList.add('active'); }, 150);
 
     // ==========================================
-    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS
+    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS CON PARALLAX
     // ==========================================
-    const sliderContainer = document.querySelector('.split-slider-container');
+    const sliderContainer = document.getElementById('parallax-slider');
     const beforeLayer = document.getElementById('before-layer');
     const sliderHandle = document.getElementById('slider-handle');
 
     if (sliderContainer && beforeLayer && sliderHandle) {
-        const moverSlider = (clientX) => {
+        const imgAfter = sliderContainer.querySelector('.img-after');
+        const imgBefore = sliderContainer.querySelector('.img-before');
+
+        const moverSlider = (clientX, clientY) => {
             const rect = sliderContainer.getBoundingClientRect();
             const posicionX = clientX - rect.left;
             let porcentaje = (posicionX / rect.width) * 100;
@@ -35,11 +38,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
             beforeLayer.style.width = `${porcentaje}%`;
             sliderHandle.style.left = `${porcentaje}%`;
+
+            // 🚀 INTERACCIÓN EXCLUSIVA: Efecto Parallax basado en posición táctil/mouse
+            if(imgAfter && imgBefore) {
+                const fuerzaX = (clientX - rect.left - (rect.width / 2)) * 0.02;
+                const fuerzaY = (clientY - rect.top - (rect.height / 2)) * 0.04;
+                
+                // Desfasa sutilmente el centro de las imágenes simulando profundidad 3D
+                imgAfter.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
+                imgBefore.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
+            }
         };
 
-        sliderContainer.addEventListener('mousemove', (e) => moverSlider(e.clientX));
+        sliderContainer.addEventListener('mousemove', (e) => moverSlider(e.clientX, e.clientY));
         sliderContainer.addEventListener('touchmove', (e) => {
-            if (e.touches[0]) moverSlider(e.touches[0].clientX);
+            if (e.touches[0]) moverSlider(e.touches[0].clientX, e.touches[0].clientY);
+        });
+        
+        // Resetear posición fija al salir
+        sliderContainer.addEventListener('mouseleave', () => {
+            if(imgAfter && imgBefore) {
+                imgAfter.style.backgroundPosition = "center";
+                imgBefore.style.backgroundPosition = "center";
+            }
         });
     }
 

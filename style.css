@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -67,12 +67,12 @@ nav a:hover { color: #b1c57c; }
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 24px;
+    padding: 0 20px;
     background: linear-gradient(rgba(250, 246, 245, 0.55), rgba(250, 246, 245, 0.55)), 
                 url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1920') center/cover no-repeat;
 }
 
-.hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 800px; }
+.hero-content { display: flex; flex-direction: column; align-items: center; }
 .hero-content h1 { font-size: 54px; font-weight: 600; line-height: 1.15; margin-bottom: 15px; }
 
 .subtitulo {
@@ -133,7 +133,7 @@ nav a:hover { color: #b1c57c; }
 .slider-handle { position: absolute; top: 0; left: 50%; width: 4px; height: 100%; background-color: #ffffff; transform: translateX(-50%); z-index: 10; }
 .handle-button { width: 42px; height: 42px; background-color: #ffffff; color: #72824d; font-weight: bold; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 14px; }
 
-/* --- QUIZ INTERACTIVO REFINADO --- */
+/* --- QUIZ INTERACTIVO CSS --- */
 .quiz-container-web { display: flex; justify-content: center; padding: 40px 8% 20px; }
 .quiz-box { background: #ffffff; border-radius: 24px; padding: 40px; width: 100%; max-width: 750px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid rgba(177,197,124,0.1); }
 .quiz-badge { background-color: rgba(177, 197, 124, 0.15); color: #7f934b; font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 25px; text-transform: uppercase; }
@@ -141,21 +141,52 @@ nav a:hover { color: #b1c57c; }
 .quiz-intro { font-size: 14px; color: #525d54; margin-bottom: 30px; }
 .quiz-step { display: none; }
 .quiz-step.active { display: block; animation: fadeIn 0.4s ease-out; }
-.quiz-step h3 { font-size: 18px; margin-bottom: 20px; color: #222a23; font-weight: 500; padding: 0 10px; }
+.quiz-step h3 { font-size: 18px; margin-bottom: 20px; color: #222a23; font-weight: 500; }
 .quiz-opciones { display: flex; flex-direction: column; gap: 12px; max-width: 500px; margin: 0 auto; width: 100%; }
 
-.btn-quiz-opt { padding: 16px 20px; background: #faf6f5; border: 1px solid #e3dad4; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 14px; color: #38423a; text-align: left; cursor: pointer; transition: background 0.2s, border-color 0.2s; width: 100%; box-shadow: 0 2px 5px rgba(0,0,0,0.01); }
+.btn-quiz-opt { padding: 16px 20px; background: #faf6f5; border: 1px solid #e3dad4; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 14px; color: #38423a; text-align: left; cursor: pointer; transition: background 0.2s, border-color 0.2s; width: 100%; }
 .btn-quiz-opt:hover { background: #ffffff; border-color: #b1c57c; box-shadow: 0 4px 12px rgba(177,197,124,0.1); }
 .btn-quiz-opt:active, .servicio-card:active, .faq-question:active { transform: scale(0.985); transition: transform 0.08s ease; }
 
 .resultado-highlight { font-size: 24px; font-weight: 700; color: #b1c57c; margin: 15px 0; }
-.resultado-sub { font-size: 13.5px; color: #525d54; margin-bottom: 20px; padding: 0 15px; }
+.resultado-sub { font-size: 13.5px; color: #525d54; margin-bottom: 20px; }
 
-/* --- PESTAÑAS DE CATEGORÍAS (TABS) --- */
-.tabs-nav-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; background: rgba(96, 114, 97, 0.04); padding: 6px; border-radius: 35px; max-width: 680px; margin-left: auto; margin-right: auto; position: relative; }
-.tab-link { padding: 12px 28px; border: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #525d54; border-radius: 25px; cursor: pointer; white-space: nowrap; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); }
+/* --- PESTAÑAS DE CATEGORÍAS (TABS - ESCRITORIO) --- */
+.tabs-nav-container { 
+    display: flex; 
+    justify-content: center; 
+    gap: 8px; 
+    margin-bottom: 40px; 
+    background: rgba(96, 114, 97, 0.04); 
+    padding: 6px; 
+    border-radius: 35px; 
+    max-width: 680px; 
+    margin-left: auto; 
+    margin-right: auto;
+    position: relative;
+}
+
+.tab-link { 
+    padding: 12px 28px; 
+    border: none; 
+    background: transparent; 
+    font-family: 'Inter', sans-serif; 
+    font-size: 14px; 
+    font-weight: 500; 
+    color: #525d54; 
+    border-radius: 25px; 
+    cursor: pointer;  white-space: nowrap; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); 
+}
+
 .tab-link:hover { color: #222a23; }
-.tab-link.active { background-color: #fbcad7; color: #222a23; font-weight: 600; box-shadow: 0 4px 12px rgba(251, 202, 215, 0.4); }
+
+/* ROSA SARI PARA SECCIÓN ACTIVA EN ESCRITORIO */
+.tab-link.active { 
+    background-color: #fbcad7; 
+    color: #222a23; 
+    font-weight: 600; 
+    box-shadow: 0 4px 12px rgba(251, 202, 215, 0.4); 
+}
 .tab-link.active::after { content: ''; position: absolute; top: 0; left: -150%; width: 35%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent); transform: skewX(-25deg); animation: flashGlint 0.55s ease-out; }
 
 .tab-content { display: none; }
@@ -183,7 +214,7 @@ section { padding: 80px 8%; }
 .politica-item h5 { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: #222a23; }
 .politica-item p { font-size: 13.5px; color: #525d54; line-height: 1.5; }
 
-/* --- PROMO COMPLETA --- */
+/* --- PROMO GLASSMORPHISM --- */
 .promo-section { display: flex; justify-content: center; padding: 50px 4%; }
 .glass-mirror-container { background: linear-gradient(135deg, rgba(251, 202, 215, 0.15), rgba(177, 197, 124, 0.1)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200') center/cover; padding: 50px 30px; border-radius: 28px; width: 100%; max-width: 750px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.3); }
 .glass-card-inner { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 35px 40px; border-radius: 20px; max-width: 580px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 32px rgba(96, 114, 97, 0.08); position: relative; z-index: 2; }
@@ -198,7 +229,7 @@ section { padding: 80px 8%; }
 .faq-item { background: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.01); box-shadow: 0 4px 15px rgba(0,0,0,0.005); }
 .faq-question { width: 100%; padding: 20px 24px; background: #ffffff; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: #222a23; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; outline: none; transition: background 0.3s; gap: 15px; }
 .faq-question:hover { background: #faf6f5; }
-.faq-question::after { content: '+'; font-size: 18px; color: #b1c57c; font-weight: bold; transition: transform 0.3s; shrink: 0; }
+.faq-question::after { content: '+'; font-size: 18px; color: #b1c57c; font-weight: bold; transition: transform 0.3s; flex-shrink: 0; }
 .faq-item.open .faq-question::after { content: '−'; transform: rotate(180deg); }
 .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); background: #ffffff; }
 .faq-answer p { padding: 0 24px 20px; font-size: 14px; color: #525d54; line-height: 1.6; }
@@ -235,14 +266,13 @@ section { padding: 80px 8%; }
 footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size: 12px; color: #8fa091; }
 
 /* ==========================================
-   🚨 SECCIÓN CRÍTICA: RESPONSIVE MÓVIL TOTAL
+   🚨 MEDIA QUERIES (OPTIMIZACIÓN MÓVIL TOTAL)
    ========================================== */
 @media (max-width: 768px) {
     section { padding: 50px 20px; }
-    
     header { padding: 10px 20px; }
     .logo-img { height: 60px; }
-    nav a:not(.btn-nav) { display: none; } /* Oculta links largos en móvil */
+    nav a:not(.btn-nav) { display: none; } 
 
     .hero { height: 75vh; padding: 0 16px; }
     .hero-content h1 { font-size: 34px; margin-bottom: 12px; }
@@ -254,11 +284,9 @@ footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size
     .artist-image { max-width: 100%; }
     .artist-text h2 { font-size: 28px; }
     
-    /* FIX: Slider Antes/Después Responsivo Fluido */
     .split-slider-container { height: 260px; margin-top: 20px; border-radius: 16px; }
-    .handle-button { width: 46px; height: 46px; font-size: 16px; } /* Más grande para interacción táctil fácil */
+    .handle-button { width: 46px; height: 46px; font-size: 16px; } 
 
-    /* FIX: Quiz Caja Cómoda en Celulares */
     .quiz-container-web { padding: 30px 15px 10px; }
     .quiz-box { padding: 24px 16px; border-radius: 18px; }
     .quiz-box h2 { font-size: 22px; }
@@ -267,22 +295,58 @@ footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size
     .btn-quiz-opt { padding: 14px 16px; font-size: 13px; border-radius: 10px; line-height: 1.4; }
     .resultado-highlight { font-size: 20px; }
 
-    /* MENU TABS HORIZONTAL MÓVIL PERFECTO */
+    /* =======================================================
+       🔥 SOLUCIÓN DEFINITIVA AL MENÚ DE SERVICIOS EN CELULAR
+       ======================================================= */
     .tabs-nav-container { 
-        justify-content: flex-start; 
-        overflow-x: auto; 
-        white-space: nowrap;
-        padding: 6px 12px;
-        border-radius: 25px;
-        max-width: 100%;
-        -webkit-overflow-scrolling: touch; 
-        margin-bottom: 25px;
+        display: flex !important;
+        justify-content: flex-start !important; 
+        align-items: center !important;
+        gap: 10px !important;
+        overflow-x: auto !important; 
+        white-space: nowrap !important;
+        padding: 8px 16px !important;
+        border-radius: 25px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: rgba(96, 114, 97, 0.05) !important;
+        
+        /* Deslizamiento táctil de alta respuesta */
+        -webkit-overflow-scrolling: touch !important; 
+        scroll-snap-type: x mandatory;
+        
+        /* Matar barras de scroll visuales en todos los navegadores */
+        -ms-overflow-style: none !important; 
+        scrollbar-width: none !important;
+        margin: 0 auto 30px !important;
     }
-    .tabs-nav-container::-webkit-scrollbar { display: none; }
-    .tabs-nav-container { -ms-overflow-style: none; scrollbar-width: none; }
-    .tab-link { padding: 10px 18px; font-size: 12.5px; display: inline-block; }
+    
+    .tabs-nav-container::-webkit-scrollbar { 
+        display: none !important; 
+        width: 0 !important;
+        height: 0 !important;
+    }
 
-    /* TARJETAS DE SERVICIO */
+    /* Forzar a las píldoras a mantenerse enteras en una sola línea */
+    .tab-link { 
+        flex: 0 0 auto !important; /* Evita que el botón se comprima o achique */
+        display: inline-block !important;
+        padding: 10px 22px !important; 
+        font-size: 13px !important; 
+        font-weight: 500 !important;
+        border-radius: 20px !important;
+        scroll-snap-align: start;
+        white-space: nowrap !important; /* Evita saltos de renglón internos */
+    }
+
+    /* Píldora activa pintada del rosa Sari en móvil */
+    .tab-link.active {
+        font-weight: 600 !important;
+        background-color: #fbcad7 !important;
+        box-shadow: 0 4px 10px rgba(251, 202, 215, 0.35) !important;
+    }
+    /* ======================================================= */
+
     .titulo-seccion { font-size: 26px; margin-bottom: 30px; }
     .servicio-card { padding: 20px 16px; border-radius: 14px; }
     .servicio-cabecera h4 { font-size: 15px; }
@@ -290,24 +354,20 @@ footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size
     .servicio-desc { font-size: 13px; }
     .servicio-detalles { gap: 12px; font-size: 11px; }
 
-    /* POLÍTICAS */
     .politicas-section { margin: 0 10px; }
     .politicas-grid { grid-template-columns: 1fr; gap: 15px; }
     .politica-item { padding: 18px; border-radius: 12px; }
 
-    /* PROMO MIRROR GLASSMORPHISM */
     .promo-section { padding: 30px 15px; }
     .glass-mirror-container { padding: 30px 15px; border-radius: 20px; }
     .glass-card-inner { padding: 25px 20px; border-radius: 16px; }
     .glass-card-inner h3 { font-size: 22px; }
     .glass-card-inner p { font-size: 13px; }
 
-    /* PREGUNTAS FRECUENTES (FAQ) */
     .faq-section { padding: 45px 15px; }
     .faq-question { padding: 16px; font-size: 13.5px; }
     .faq-answer p { padding: 0 16px 16px; font-size: 13px; }
 
-    /* FORMULARIO AGENDA */
     .agenda-section { padding: 40px 15px; }
     .form-beauty { padding: 25px 20px; border-radius: 16px; }
     .fila-doble { flex-direction: column; gap: 0; }

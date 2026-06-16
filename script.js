@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         
         // Tu número de WhatsApp asignado para pruebas
-        const numeroWhatsAppSariStudio = "527226899514"; 
+        const numeroWhatsAppSariStudio = "527224173650"; 
 
         const nombreCliente = document.getElementById('nombre').value.trim();
         const whatsappCliente = document.getElementById('whatsapp').value.trim();

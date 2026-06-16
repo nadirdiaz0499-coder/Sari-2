@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { document.querySelector('.hero .reveal')?.classList.add('active'); }, 150);
 
     // ==========================================
-    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS CON CORRECCIÓN MÓVIL
+    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS
     // ==========================================
     const sliderContainer = document.getElementById('parallax-slider');
     const beforeLayer = document.getElementById('before-layer');
@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const moverSlider = (clientX, clientY) => {
             const rect = sliderContainer.getBoundingClientRect();
-            // Calcula de forma segura la posición relativa, incluso en scrolls rápidos de móvil
             const posicionX = clientX - rect.left;
             let porcentaje = (posicionX / rect.width) * 100;
 
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
             beforeLayer.style.width = `${porcentaje}%`;
             sliderHandle.style.left = `${porcentaje}%`;
 
-            // Parallax sutil (Solo se ejecuta si hay soporte visual fluido)
             if(imgAfter && imgBefore) {
                 const fuerzaX = (clientX - rect.left - (rect.width / 2)) * 0.015;
                 const fuerzaY = (clientY - rect.top - (rect.height / 2)) * 0.025;
@@ -50,13 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        // Eventos de Escritorio
         sliderContainer.addEventListener('mousemove', (e) => moverSlider(e.clientX, e.clientY));
         
-        // Eventos Táctiles Móviles Corregidos
         sliderContainer.addEventListener('touchmove', (e) => {
             if (e.touches && e.touches[0]) {
-                // Previene que la pantalla se mueva bruscamente hacia arriba/abajo mientras arrastras el slider
                 e.preventDefault(); 
                 moverSlider(e.touches[0].clientX, e.touches[0].clientY);
             }
@@ -161,11 +156,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const tipsCuidados = {
         "Lash Lifting ($300)": "Para el Lash Lifting, acudir con tus pestañas totalmente limpias y sin rímel agiliza el proceso.",
-        "Extensiones Clásicas ($500)": "Evita aplicar productos oleosos o rímel en los ojos 24 horas antes para garantizar la máxima retención.",
-        "Volumen Hawaiano ($430)": "¡Una gran elección! Agenda tus retoques entre los 15 y 18 días para mantener tu mirada impecable.",
-        "Efecto Máscara ($500)": "Este diseño aporta un fondo oscuro genial. Recuerda no mojar tus ojos durante las primeras 24 horas.",
-        "Cejas 4K ($400)": "Evita desmaquillantes bifásicos o exfoliantes sobre la ceja para prolongar el sombreado de la henna.",
-        "Combo Magic ($500)": "Al ser un servicio doble simultáneo, optimizamos tu tiempo al máximo. ¡Ven lista para relajarte!"
+        "Extensiones Clásicas ($500)": "Evita aplicar productos oleosos o rímel en los ojos 24 horas antes para garantizar la máxima retención del set.",
+        "Volumen Hawaiano ($430)": "¡Una gran elección! Agenda tus retoques entre los 15 y 18 días para mantener tu mirada densa y perfecta.",
+        "Efecto Máscara ($500)": "Este diseño aporta un fondo oscuro genial. Recuerda no mojar tus ojos durante las primeras 24 horas de la aplicación.",
+        "Cejas 4K ($400)": "Evita desmaquillantes bifásicos o exfoliantes sobre la ceja para prolongar el sombreado de la henna orgánica.",
+        "Combo Magic ($500)": "Al ser un servicio de aplicación simultánea doble, optimizamos tu tiempo al máximo. ¡Ven lista para relajarte!"
     };
 
     selectServicio?.addEventListener('change', (e) => {
@@ -180,11 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 6. ENVIAR FORMULARIO A WHATSAPP
+    // 6. ENVIAR FORMULARIO A WHATSAPP (CON TU NÚMERO DE PRUEBA)
     // ==========================================
     document.getElementById('formulario-cita')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const numeroWhatsAppSariStudio = "52XXXXXXXXXX"; // Configurar el número aquí
+        
+        // Tu número de WhatsApp asignado para pruebas
+        const numeroWhatsAppSariStudio = "527226899514"; 
 
         const nombreCliente = document.getElementById('nombre').value.trim();
         const whatsappCliente = document.getElementById('whatsapp').value.trim();
@@ -192,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fechaCita = document.getElementById('fecha').value;
         const horaCita = document.getElementById('hora').value;
 
+        // Cambia el formato de la fecha de AAAA-MM-DD a DD/MM/AAAA
         const fechaLimpia = fechaCita.split('-').reverse().join('/');
 
         const textoMensaje = 

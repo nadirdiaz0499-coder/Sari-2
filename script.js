@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. ENGINE DE ANIMACIÓN POR SCROLL (REVEAL)
     // ==========================================
     const elementosReveal = document.querySelectorAll('.reveal');
-    const opcionesObserver = { root: null, threshold: 0.05, rootMargin: "0px 0px -40px 0px" };
+    const opcionesObserver = { root: null, threshold: 0.02, rootMargin: "0px 0px -20px 0px" };
 
     const arrancarEfecto = new IntersectionObserver((entradas, observador) => {
         entradas.forEach(entrada => {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { document.querySelector('.hero .reveal')?.classList.add('active'); }, 150);
 
     // ==========================================
-    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS CON PARALLAX
+    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS CON CORRECCIÓN MÓVIL
     // ==========================================
     const sliderContainer = document.getElementById('parallax-slider');
     const beforeLayer = document.getElementById('before-layer');
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const moverSlider = (clientX, clientY) => {
             const rect = sliderContainer.getBoundingClientRect();
+            // Calcula de forma segura la posición relativa, incluso en scrolls rápidos de móvil
             const posicionX = clientX - rect.left;
             let porcentaje = (posicionX / rect.width) * 100;
 
@@ -39,23 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
             beforeLayer.style.width = `${porcentaje}%`;
             sliderHandle.style.left = `${porcentaje}%`;
 
-            // 🚀 INTERACCIÓN EXCLUSIVA: Efecto Parallax basado en posición táctil/mouse
+            // Parallax sutil (Solo se ejecuta si hay soporte visual fluido)
             if(imgAfter && imgBefore) {
-                const fuerzaX = (clientX - rect.left - (rect.width / 2)) * 0.02;
-                const fuerzaY = (clientY - rect.top - (rect.height / 2)) * 0.04;
+                const fuerzaX = (clientX - rect.left - (rect.width / 2)) * 0.015;
+                const fuerzaY = (clientY - rect.top - (rect.height / 2)) * 0.025;
                 
-                // Desfasa sutilmente el centro de las imágenes simulando profundidad 3D
                 imgAfter.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
                 imgBefore.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
             }
         };
 
+        // Eventos de Escritorio
         sliderContainer.addEventListener('mousemove', (e) => moverSlider(e.clientX, e.clientY));
-        sliderContainer.addEventListener('touchmove', (e) => {
-            if (e.touches[0]) moverSlider(e.touches[0].clientX, e.touches[0].clientY);
-        });
         
-        // Resetear posición fija al salir
+        // Eventos Táctiles Móviles Corregidos
+        sliderContainer.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches[0]) {
+                // Previene que la pantalla se mueva bruscamente hacia arriba/abajo mientras arrastras el slider
+                e.preventDefault(); 
+                moverSlider(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: false });
+        
         sliderContainer.addEventListener('mouseleave', () => {
             if(imgAfter && imgBefore) {
                 imgAfter.style.backgroundPosition = "center";
@@ -154,12 +160,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const tipText = document.getElementById('smart-tip-text');
 
     const tipsCuidados = {
-        "Lash Lifting ($300)": "Para el Lash Lifting, acudir con tus pestañas totalmente limpias y sin rímel agiliza y optimiza el proceso.",
-        "Extensiones Clásicas ($500)": "Evita aplicar productos oleosos o rímel en los ojos 24 horas antes para garantizar la máxima retención del set.",
-        "Volumen Hawaiano ($430)": "¡Una gran elección! Agenda tus retoques entre los 15 y 18 días para mantener tu mirada densa y perfecta.",
-        "Efecto Máscara ($500)": "Este diseño aporta un fondo oscuro genial. Recuerda no mojar tus ojos durante las primeras 24 horas de la aplicación.",
-        "Cejas 4K ($400)": "Evita desmaquillantes bifásicos o exfoliantes sobre la ceja para prolongar el sombreado de la henna orgánica.",
-        "Combo Magic ($500)": "Al ser un servicio de aplicación simultánea doble, optimizamos tu tiempo al máximo. ¡Ven lista para relajarte!"
+        "Lash Lifting ($300)": "Para el Lash Lifting, acudir con tus pestañas totalmente limpias y sin rímel agiliza el proceso.",
+        "Extensiones Clásicas ($500)": "Evita aplicar productos oleosos o rímel en los ojos 24 horas antes para garantizar la máxima retención.",
+        "Volumen Hawaiano ($430)": "¡Una gran elección! Agenda tus retoques entre los 15 y 18 días para mantener tu mirada impecable.",
+        "Efecto Máscara ($500)": "Este diseño aporta un fondo oscuro genial. Recuerda no mojar tus ojos durante las primeras 24 horas.",
+        "Cejas 4K ($400)": "Evita desmaquillantes bifásicos o exfoliantes sobre la ceja para prolongar el sombreado de la henna.",
+        "Combo Magic ($500)": "Al ser un servicio doble simultáneo, optimizamos tu tiempo al máximo. ¡Ven lista para relajarte!"
     };
 
     selectServicio?.addEventListener('change', (e) => {
@@ -178,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     document.getElementById('formulario-cita')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const numeroWhatsAppSariStudio = "52XXXXXXXXXX"; // Poner teléfono real de Mafer aquí
+        const numeroWhatsAppSariStudio = "52XXXXXXXXXX"; // Configurar el número aquí
 
         const nombreCliente = document.getElementById('nombre').value.trim();
         const whatsappCliente = document.getElementById('whatsapp').value.trim();

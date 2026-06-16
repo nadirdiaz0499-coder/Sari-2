@@ -44,7 +44,6 @@
     <section id="quienes-somos" class="artist-section reveal">
         <div class="artist-container">
             <div class="artist-image">
-                <!-- Foto profesional genérica de una especialista en belleza aplicando tratamientos de precisión -->
                 <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600" alt="Sari Studio - Quiénes Somos">
             </div>
             <div class="artist-text">
@@ -56,14 +55,14 @@
         </div>
     </section>
 
-    <!-- SLIDER INTERACTIVO ANTES/DESPUÉS -->
+    <!-- SLIDER INTERACTIVO ANTES/DESPUÉS CON PARALLAX -->
     <section id="transformacion" class="transformacion-section">
         <div class="contenedor-chico text-center">
             <span class="magic-badge">Resultados Reales ✨</span>
             <h2 class="titulo-seccion reveal">El Arte del Detalle</h2>
             <p class="sub-galeria reveal">Desliza la barra central para descubrir la magia inmediata en Sari Studio.</p>
             
-            <div class="split-slider-container reveal">
+            <div class="split-slider-container reveal" id="parallax-slider">
                 <!-- Imagen del DESPUÉS -->
                 <div class="slider-img img-after" style="background-image: url('https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=1000');"></div>
                 <!-- Imagen del ANTES -->
@@ -124,7 +123,7 @@
             <h2 class="titulo-seccion reveal">Menú de Servicios</h2>
             <p class="text-center sub-galeria reveal" style="margin-top: -30px; margin-bottom: 40px;">Selecciona una categoría para explorar sus detalles.</p>
 
-            <!-- Botones Selectores de Categorías (Optimizado con scroll en celular) -->
+            <!-- Botones Selectores de Categorías -->
             <div class="tabs-nav-container reveal">
                 <button class="tab-link active" onclick="openCategory(event, 'tab-pestanas')">Pestañas</button>
                 <button class="tab-link" onclick="openCategory(event, 'tab-cejas')">Cejas</button>
@@ -247,7 +246,6 @@
                     <span class="micro-copy">✦ Aporta un volumen natural sutil por hidratación extrema, sin rellenos médicos</span>
                 </div>
             </div>
-
         </div>
     </section>
 

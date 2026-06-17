@@ -1,389 +1,246 @@
-/* --- RESET GENERAL --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    scroll-padding-top: 100px;
-}
+document.addEventListener("DOMContentLoaded", () => {
+    // ==========================================
+    // 1. ENGINE DE ANIMACIÓN POR SCROLL (REVEAL)
+    // ==========================================
+    const elementosReveal = document.querySelectorAll('.reveal');
+    const opcionesObserver = { root: null, threshold: 0.02, rootMargin: "0px 0px -20px 0px" };
 
-body {
-    background-color: #faf6f5; 
-    color: #38423a; 
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-}
+    const arrancarEfecto = new IntersectionObserver((entradas, observador) => {
+        entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+                entrada.target.classList.add('active');
+                observador.unobserve(entrada.target);
+            }
+        });
+    }, opcionesObserver);
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Inter', sans-serif;
-    color: #222a23;
-    letter-spacing: -0.5px;
-}
+    elementosReveal.forEach(elemento => arrancarEfecto.observe(elemento));
+    setTimeout(() => { document.querySelector('.hero .reveal')?.classList.add('active'); }, 150);
 
-.text-center { text-align: center; }
-
-/* --- MENÚ DE NAVEGACIÓN --- */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 8%; 
-    background-color: rgba(250, 246, 245, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 1000;
-    border-bottom: 1px solid rgba(177, 197, 124, 0.15);
-}
-
-.logo { display: flex; align-items: center; }
-.logo-img { height: 75px; width: auto; object-fit: contain; }
-
-nav a {
-    text-decoration: none;
-    color: #525d54;
-    font-size: 13px;
-    font-weight: 500;
-    margin-left: 25px;
-    transition: color 0.3s;
-}
-
-nav a:hover { color: #b1c57c; }
-.btn-nav {
-    background-color: #b1c57c; 
-    color: #ffffff !important;
-    padding: 10px 22px;
-    border-radius: 25px;
-}
-
-/* --- HERO CON EFECTO REVEAL CINEMATOGRÁFICO DE MIRADA --- */
-.hero {
-    height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    padding: 0 20px;
-}
-
-/* Capa de fondo desacoplada para la foto de cejas y pestañas (CORREGIDA CON LA IMAGEN PREMIUM QUE MANDASTE) */
-.hero-bg-parallax {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 115%; /* Más alto para dar espacio al movimiento de scroll */
-    background-image: linear-gradient(rgba(250, 246, 245, 0.45), rgba(250, 246, 245, 0.45)), 
-                      url('https://www.thelashlounge.com/wp-content/uploads/2023/06/lash-and-brow-close-up.png');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    filter: blur(10px); /* Desenfoque inicial elegante */
-    transform: scale(1.05);
-    transition: filter 0.15s ease-out, transform 0.1s ease-out, background-position 0.15s ease-out;
-    will-change: filter, transform, background-position;
-    z-index: 1;
-}
-
-.hero-content { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    position: relative;
-    z-index: 2; /* Flota sobre la imagen */
-}
-
-.hero-content h1 { 
-    font-size: 58px; 
-    font-weight: 600; 
-    line-height: 1.15; 
-    margin-bottom: 15px; 
-    text-shadow: 0 2px 10px rgba(250, 246, 245, 0.5);
-}
-
-.subtitulo {
-    font-size: 16.5px;
-    color: #1e2520;
-    max-width: 550px;
-    margin: 0 auto 35px;
-    line-height: 1.6;
-    font-weight: 400;
-    text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.9);
-}
-
-.btn-principal {
-    display: inline-block;
-    padding: 16px 45px;
-    background-color: #fbcad7; 
-    color: #222a23;
-    text-decoration: none;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.3s, background-color 0.3s;
-    box-shadow: 0 4px 15px rgba(251, 202, 215, 0.3);
-}
-
-.btn-principal:hover { background-color: #f7b3c4; transform: translateY(-1px); }
-.btn-principal:active, .btn-enviar:active { transform: scale(0.97); }
-
-.magic-badge {
-    background-color: rgba(177, 197, 124, 0.12);
-    color: #72824d;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 25px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: inline-block;
-    margin-bottom: 12px;
-}
-
-/* --- SECCIÓN QUIÉNES SOMOS --- */
-.artist-section { padding: 90px 8% 40px; }
-.artist-container { display: flex; align-items: center; gap: 60px; max-width: 1000px; margin: 0 auto; }
-.artist-image { flex: 1; max-width: 450px; }
-.artist-image img { width: 100%; height: auto; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-.artist-text { flex: 1.2; }
-.artist-text h2 { font-size: 38px; margin-bottom: 20px; font-weight: 600; }
-.artist-text p { font-size: 15px; color: #525d54; line-height: 1.7; margin-bottom: 15px; }
-
-/* --- SIMULADOR SLIDER ANTES/DESPUÉS --- */
-.transformacion-section { padding: 60px 8% 40px; }
-.split-slider-container { width: 100%; max-width: 750px; height: 450px; margin: 30px auto 0; position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06); cursor: ew-resize; user-select: none; }
-.slider-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: background-position 0.1s ease-out; }
-.img-before { width: 50%; border-right: 2px solid #ffffff; }
-.slider-handle { position: absolute; top: 0; left: 50%; width: 4px; height: 100%; background-color: #ffffff; transform: translateX(-50%); z-index: 10; }
-.handle-button { width: 42px; height: 42px; background-color: #ffffff; color: #72824d; font-weight: bold; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 14px; }
-
-/* --- QUIZ INTERACTIVO CSS --- */
-.quiz-container-web { display: flex; justify-content: center; padding: 40px 8% 20px; }
-.quiz-box { background: #ffffff; border-radius: 24px; padding: 40px; width: 100%; max-width: 750px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 1px solid rgba(177,197,124,0.1); }
-.quiz-badge { background-color: rgba(177, 197, 124, 0.15); color: #7f934b; font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: 25px; text-transform: uppercase; }
-.quiz-box h2 { font-size: 28px; margin: 15px 0 8px; }
-.quiz-intro { font-size: 14px; color: #525d54; margin-bottom: 30px; }
-.quiz-step { display: none; }
-.quiz-step.active { display: block; animation: fadeIn 0.4s ease-out; }
-.quiz-step h3 { font-size: 18px; margin-bottom: 20px; color: #222a23; font-weight: 500; }
-.quiz-opciones { display: flex; flex-direction: column; gap: 12px; max-width: 500px; margin: 0 auto; width: 100%; }
-
-.btn-quiz-opt { padding: 16px 20px; background: #faf6f5; border: 1px solid #e3dad4; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 14px; color: #38423a; text-align: left; cursor: pointer; transition: background 0.2s, border-color 0.2s; width: 100%; }
-.btn-quiz-opt:hover { background: #ffffff; border-color: #b1c57c; box-shadow: 0 4px 12px rgba(177,197,124,0.1); }
-.btn-quiz-opt:active, .servicio-card:active, .faq-question:active { transform: scale(0.985); transition: transform 0.08s ease; }
-
-.resultado-highlight { font-size: 24px; font-weight: 700; color: #b1c57c; margin: 15px 0; }
-.resultado-sub { font-size: 13.5px; color: #525d54; margin-bottom: 20px; }
-
-/* --- PESTAÑAS DE CATEGORÍAS (TABS - ESCRITORIO) --- */
-.tabs-nav-container { 
-    display: flex; 
-    justify-content: center; 
-    gap: 8px; 
-    margin-bottom: 40px; 
-    background: rgba(96, 114, 97, 0.04); 
-    padding: 6px; 
-    border-radius: 35px; 
-    max-width: 680px; 
-    margin-left: auto; 
-    margin-right: auto;
-    position: relative;
-}
-
-.tab-link { 
-    padding: 12px 28px; 
-    border: none; 
-    background: transparent; 
-    font-family: 'Inter', sans-serif; 
-    font-size: 14px; 
-    font-weight: 500; 
-    color: #525d54; 
-    border-radius: 25px; 
-    cursor: pointer;  white-space: nowrap; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); 
-}
-
-.tab-link:hover { color: #222a23; }
-
-/* ROSA SARI PARA SECCIÓN ACTIVA EN ESCRITORIO */
-.tab-link.active { 
-    background-color: #fbcad7; 
-    color: #222a23; 
-    font-weight: 600; 
-    box-shadow: 0 4px 12px rgba(251, 202, 215, 0.4); 
-}
-.tab-link.active::after { content: ''; position: absolute; top: 0; left: -150%; width: 35%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent); transform: skewX(-25deg); animation: flashGlint 0.55s ease-out; }
-
-.tab-content { display: none; }
-.tab-content.active-content { display: block; animation: fadeIn 0.5s ease-out; }
-
-/* SERVICIOS EDITORIAL */
-section { padding: 80px 8%; }
-.titulo-seccion { font-size: 36px; text-align: center; margin-bottom: 50px; font-weight: 600; }
-.sub-galeria { text-align: center; margin-bottom: 40px; font-size: 14px; color: #525d54; }
-
-.servicio-card { background-color: #ffffff; padding: 26px 26px 30px; border-radius: 18px; margin-bottom: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.01); border: 1px solid rgba(0,0,0,0.005); position: relative; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.servicio-cabecera { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 15px; }
-.servicio-cabecera h4 { font-size: 17px; font-weight: 600; color: #222a23; }
-.precio { font-size: 17px; font-weight: 600; color: #72824d; white-space: nowrap; }
-.servicio-desc { font-size: 14px; color: #5c665d; line-height: 1.5; margin-bottom: 12px; }
-
-.micro-copy { display: block; font-size: 12px; color: #72824d; font-weight: 500; margin-bottom: 14px; font-style: italic; background-color: rgba(177, 197, 124, 0.05); padding: 4px 10px; border-radius: 4px; width: fit-content; }
-.servicio-detalles { display: flex; gap: 20px; font-size: 12px; color: #8da091; font-weight: 500; border-top: 1px dashed #eade; padding-top: 12px; flex-wrap: wrap; }
-.combo-highlight { border-left: 4px solid #fbcad7; }
-
-/* --- POLÍTICAS --- */
-.politicas-section { background-color: #ffffff; border-radius: 24px; margin: 0 4%; }
-.politicas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-.politica-item { background-color: #faf6f5; padding: 24px; border-radius: 14px; border: 1px solid rgba(177, 197, 124, 0.05); }
-.politica-item h5 { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: #222a23; }
-.politica-item p { font-size: 13.5px; color: #525d54; line-height: 1.5; }
-
-/* --- PROMO GLASSMORPHISM --- */
-.promo-section { display: flex; justify-content: center; padding: 50px 4%; }
-.glass-mirror-container { background: linear-gradient(135deg, rgba(251, 202, 215, 0.15), rgba(177, 197, 124, 0.1)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200') center/cover; padding: 50px 30px; border-radius: 28px; width: 100%; max-width: 750px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); border: 1px solid rgba(255, 255, 255, 0.3); }
-.glass-card-inner { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 35px 40px; border-radius: 20px; max-width: 580px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 32px rgba(96, 114, 97, 0.08); position: relative; z-index: 2; }
-.badge-promo { background-color: #222a23; color: #ffffff; font-size: 10px; font-weight: 600; padding: 5px 14px; border-radius: 25px; text-transform: uppercase; display: inline-block; letter-spacing: 0.5px; }
-.glass-card-inner h3 { font-size: 28px; margin: 15px 0 10px; font-weight: 700; color: #222a23; }
-.glass-card-inner p { font-size: 14.5px; line-height: 1.6; color: #38423a; font-weight: 400; }
-.glass-shimmer-line { position: absolute; top: 0; left: -150%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent); transform: skewX(-25deg); animation: elegantShimmer 6s infinite ease-in-out; z-index: 1; }
-
-/* --- PREGUNTAS FRECUENTES --- */
-.faq-section { padding: 60px 8%; }
-.faq-container { max-width: 750px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
-.faq-item { background: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.01); box-shadow: 0 4px 15px rgba(0,0,0,0.005); }
-.faq-question { width: 100%; padding: 20px 24px; background: #ffffff; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: #222a23; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; outline: none; transition: background 0.3s; gap: 15px; }
-.faq-question:hover { background: #faf6f5; }
-.faq-question::after { content: '+'; font-size: 18px; color: #b1c57c; font-weight: bold; transition: transform 0.3s; flex-shrink: 0; }
-.faq-item.open .faq-question::after { content: '−'; transform: rotate(180deg); }
-.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); background: #ffffff; }
-.faq-answer p { padding: 0 24px 20px; font-size: 14px; color: #525d54; line-height: 1.6; }
-
-/* --- FORMULARIO Y AGENDA --- */
-.agenda-section { background-color: #ffffff; border-radius: 24px 24px 0 0; margin-top: 40px; display: flex; justify-content: center; padding: 60px 4%; }
-.contenedor-formulario { width: 100%; max-width: 550px; text-align: center; }
-.form-beauty { background: #faf6f5; padding: 40px; border-radius: 20px; text-align: left; border: 1px solid rgba(0,0,0,0.01); width: 100%; }
-.grupo-input { display: flex; flex-direction: column; margin-bottom: 20px; }
-.grupo-input label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; color: #b1c57c; font-weight: 600; }
-.grupo-input input, .grupo-input select { padding: 14px; border: 1px solid #dcd5ce; background-color: #ffffff; font-size: 14px; border-radius: 8px; outline: none; width: 100%; font-family: 'Inter', sans-serif; }
-.grupo-input input:focus, .grupo-input select:focus { border-color: #b1c57c; }
-
-.smart-tip-card { background-color: #ffffff; border-left: 4px solid #b1c57c; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.01); animation: slideDown 0.3s ease; text-align: left; }
-.smart-tip-card.hidden { display: none; }
-.tip-icon { font-size: 18px; }
-.smart-tip-card p { font-size: 12.5px; color: #525d54; line-height: 1.4; margin-bottom: 0; }
-
-.fila-doble { display: flex; gap: 15px; }
-.fila-doble .grupo-input { flex: 1; }
-
-.btn-enviar { width: 100%; padding: 16px; background-color: #b1c57c; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
-.btn-enviar:hover { background-color: #9cb16b; }
-.info-footer-studio { margin-top: 30px; font-size: 13px; color: #607261; line-height: 1.6; }
-
-/* --- KEYFRAMES --- */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes elegantShimmer { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
-@keyframes flashGlint { 0% { left: -150%; } 100% { left: 150%; } }
-
-.reveal { opacity: 0; transform: translateY(35px); transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1); }
-.reveal.active { opacity: 1; transform: translateY(0); }
-footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size: 12px; color: #8fa091; }
-
-/* --- MEDIA QUERIES (OPTIMIZACIÓN MÓVIL TOTAL) --- */
-@media (max-width: 768px) {
-    section { padding: 50px 20px; }
-    header { padding: 10px 20px; }
-    .logo-img { height: 60px; }
-    nav a:not(.btn-nav) { display: none; } 
-
-    .hero { height: 75vh; padding: 0 16px; }
-    .hero-content h1 { font-size: 34px; margin-bottom: 12px; }
-    .subtitulo { font-size: 14px; margin-bottom: 25px; }
-    .btn-principal { padding: 14px 35px; font-size: 13px; }
-
-    .artist-section { padding: 60px 20px 30px; }
-    .artist-container { flex-direction: column; gap: 30px; text-align: center; }
-    .artist-image { max-width: 100%; }
-    .artist-text h2 { font-size: 28px; }
+    // =================================================================
+    // 🚀 OPCIÓN 1 EXCLUSIVA: REVEAL DE ENFOQUE + PARALLAX POR SCROLL NATIVO
+    // =================================================================
+    const heroBg = document.getElementById('hero-bg');
     
-    .split-slider-container { height: 260px; margin-top: 20px; border-radius: 16px; }
-    .handle-button { width: 46px; height: 46px; font-size: 16px; } 
+    window.addEventListener('scroll', () => {
+        const valueScroll = window.scrollY;
+        
+        if (heroBg && valueScroll <= window.innerHeight) {
+            // A medida que bajan la pantalla, el desenfoque baja a 0 limpiamente
+            const blurValue = Math.max(10 - (valueScroll / 25), 0);
+            // Parallax vertical suave controlado únicamente por el scroll
+            const translateY = valueScroll * 0.30;
+            // Micro-ajuste de escala para evitar bordes blancos en el desfase
+            const scaleValue = 1.05 + (valueScroll * 0.00005);
+            
+            heroBg.style.filter = `blur(${blurValue}px)`;
+            heroBg.style.transform = `scale(${scaleValue}) translateY(${translateY}px)`;
+        }
+    });
 
-    .quiz-container-web { padding: 30px 15px 10px; }
-    .quiz-box { padding: 24px 16px; border-radius: 18px; }
-    .quiz-box h2 { font-size: 22px; }
-    .quiz-intro { font-size: 13px; margin-bottom: 20px; }
-    .quiz-step h3 { font-size: 15px; margin-bottom: 15px; }
-    .btn-quiz-opt { padding: 14px 16px; font-size: 13px; border-radius: 10px; line-height: 1.4; }
-    .resultado-highlight { font-size: 20px; }
+    // ==========================================
+    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS
+    // ==========================================
+    const sliderContainer = document.getElementById('parallax-slider');
+    const beforeLayer = document.getElementById('before-layer');
+    const sliderHandle = document.getElementById('slider-handle');
 
-    .tabs-nav-container { 
-        display: flex !important;
-        justify-content: flex-start !important; 
-        align-items: center !important;
-        gap: 10px !important;
-        overflow-x: auto !important; 
-        white-space: nowrap !important;
-        padding: 8px 16px !important;
-        border-radius: 25px !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        background: rgba(96, 114, 97, 0.05) !important;
-        -webkit-overflow-scrolling: touch !important; 
-        scroll-snap-type: x mandatory;
-        -ms-overflow-style: none !important; 
-        scrollbar-width: none !important;
-        margin: 0 auto 30px !important;
+    if (sliderContainer && beforeLayer && sliderHandle) {
+        const imgAfter = sliderContainer.querySelector('.img-after');
+        const imgBefore = sliderContainer.querySelector('.img-before');
+
+        const moverSlider = (clientX, clientY) => {
+            const rect = sliderContainer.getBoundingClientRect();
+            const posicionX = clientX - rect.left;
+            let porcentaje = (posicionX / rect.width) * 100;
+
+            if (porcentaje < 0) porcentaje = 0;
+            if (porcentaje > 100) porcentaje = 100;
+
+            beforeLayer.style.width = `${porcentaje}%`;
+            sliderHandle.style.left = `${porcentaje}%`;
+
+            if(imgAfter && imgBefore) {
+                const fuerzaX = (clientX - rect.left - (rect.width / 2)) * 0.015;
+                const fuerzaY = (clientY - rect.top - (rect.height / 2)) * 0.025;
+                
+                imgAfter.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
+                imgBefore.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
+            }
+        };
+
+        sliderContainer.addEventListener('mousemove', (e) => moverSlider(e.clientX, e.clientY));
+        
+        sliderContainer.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches[0]) {
+                e.preventDefault(); 
+                moverSlider(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: false });
+        
+        sliderContainer.addEventListener('mouseleave', () => {
+            if(imgAfter && imgBefore) {
+                imgAfter.style.backgroundPosition = "center";
+                imgBefore.style.backgroundPosition = "center";
+            }
+        });
     }
-    .tabs-nav-container::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 
-    .tab-link { 
-        flex: 0 0 auto !important; 
-        display: inline-block !important;
-        padding: 10px 22px !important; 
-        font-size: 13px !important; 
-        font-weight: 500 !important;
-        border-radius: 20px !important;
-        scroll-snap-align: start;
-        white-space: nowrap !important; 
+    // ==========================================
+    // 3. LÓGICA DEL ACCORDION DE PREGUNTAS (FAQ)
+    // ==========================================
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const answer = question.nextElementSibling;
+
+            if (item.classList.contains('open')) {
+                answer.style.maxHeight = null;
+                item.classList.remove('open');
+            } else {
+                document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                    openItem.querySelector('.faq-answer').style.maxHeight = null;
+                    openItem.classList.remove('open');
+                });
+
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                item.classList.add('open');
+            }
+        });
+    });
+
+    // ==========================================
+    // 4. LÓGICA DEL QUIZ DE LOOK PERSONALIZADO
+    // ==========================================
+    const pasosQuiz = document.querySelectorAll('.quiz-step');
+    let respuestasQuiz = {};
+
+    pasosQuiz.forEach(paso => {
+        const botones = paso.querySelectorAll('.btn-quiz-opt');
+        botones.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pasoActual = parseInt(paso.getAttribute('data-step'));
+                const valorSeleccionado = btn.getAttribute('data-value');
+                
+                if (pasoActual === 1) respuestasQuiz.efecto = valorSeleccionado;
+                if (pasoActual === 2) respuestasQuiz.enfoque = valorSeleccionado;
+                if (pasoActual === 3) respuestasQuiz.prioridad = valorSeleccionado;
+
+                paso.classList.remove('active');
+                
+                const siguientePaso = document.querySelector(`[data-step="${pasoActual + 1}"]`);
+                if (siguientePaso) {
+                    siguientePaso.classList.add('active');
+                } else {
+                    const resultadoBox = document.getElementById('quiz-resultado');
+                    const resultadoTexto = document.getElementById('resultado-texto');
+                    resultadoBox.classList.add('active');
+
+                    if (respuestasQuiz.efecto === 'natural' && respuestasQuiz.enfoque === 'pestanas') {
+                        resultadoTexto.innerText = "Lash Lifting ✨";
+                        respuestasQuiz.matchVal = "Lash Lifting ($300)";
+                    } else if (respuestasQuiz.efecto === 'rimel') {
+                        resultadoTexto.innerText = "Extensiones Efecto Máscara 🖤";
+                        respuestasQuiz.matchVal = "Efecto Máscara ($500)";
+                    } else if (respuestasQuiz.efecto === 'volumen' && respuestasQuiz.enfoque === 'cejas') {
+                        resultadoTexto.innerText = "Cejas 4K (Lamination + Henna) 👑";
+                        respuestasQuiz.matchVal = "Cejas 4K ($400)";
+                    } else if (respuestasQuiz.enfoque === 'todo') {
+                        resultadoTexto.innerText = "Ritual Magic (Lashes + Brows) 🧚‍♀️";
+                        respuestasQuiz.matchVal = "Combo Magic ($500)";
+                    } else {
+                        resultadoTexto.innerText = "Teddy Lashes 🌸";
+                        respuestasQuiz.matchVal = "Teddy Lashes ($500)";
+                    }
+                }
+            });
+        });
+    });
+
+    document.getElementById('btn-aplicar-quiz')?.addEventListener('click', () => {
+        const selectServicio = document.getElementById('servicio');
+        if (selectServicio && respuestasQuiz.matchVal) {
+            selectServicio.value = respuestasQuiz.matchVal;
+            selectServicio.dispatchEvent(new Event('change'));
+            document.getElementById('agendar').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    // ==========================================
+    // 5. RECOMENDADOR DINÁMICO DE TIPS
+    // ==========================================
+    const selectServicio = document.getElementById('servicio');
+    const tipBox = document.getElementById('smart-tip-box');
+    const tipText = document.getElementById('smart-tip-text');
+
+    const tipsCuidados = {
+        "Lash Lifting ($300)": "Para el Lash Lifting, acudir con tus pestañas totalmente limpias y sin rímel agiliza el proceso.",
+        "Extensiones Clásicas ($500)": "Evita aplicar productos oleosos o rímel en los ojos 24 horas antes para garantizar la máxima retención del set.",
+        "Volumen Hawaiano ($430)": "¡Una gran elección! Agenda tus retoques entre los 15 y 18 días para mantener tu mirada densa y perfecta.",
+        "Teddy Lashes ($500)": "Al elegir Teddy Lashes color café, recuerda que los retoques sugeridos son entre los 15 y 18 días ($350) para mantener ese volumen sutil e impecable.",
+        "Efecto Máscara ($500)": "Este diseño aporta un fondo oscuro genial. Recuerda no mojar tus ojos durante las primeras 24 horas de la aplicación.",
+        "Cejas 4K ($400)": "Evita desmaquillantes bifásicos o exfoliantes sobre la ceja para prolongar el sombreado de la henna orgánica.",
+        "Combo Magic ($500)": "Al ser un servicio de aplicación simultánea doble, optimizamos tu tiempo al máximo. ¡Ven lista para relajarte!"
+    };
+
+    selectServicio?.addEventListener('change', (e) => {
+        const servicio = e.target.value;
+        if (tipsCuidados[servicio]) {
+            tipText.innerText = tipsCuidados[servicio];
+            tipBox.classList.remove('hidden');
+        } else {
+            tipText.innerText = "Recuerda que para cuidar los resultados debes evitar consumir cafeína el día de tu cita.";
+            tipBox.classList.remove('hidden');
+        }
+    });
+
+    // ==========================================
+    // 6. ENVIAR FORMULARIO A WHATSAPP (CON TU NÚMERO DE PRUEBA)
+    // ==========================================
+    document.getElementById('formulario-cita')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Tu número de WhatsApp asignado para pruebas
+        const numeroWhatsAppSariStudio = "527226899514"; 
+
+        const nombreCliente = document.getElementById('nombre').value.trim();
+        const whatsappCliente = document.getElementById('whatsapp').value.trim();
+        const servicioSeleccionado = document.getElementById('servicio').value;
+        const fechaCita = document.getElementById('fecha').value;
+        const horaCita = document.getElementById('hora').value;
+
+        // Cambia el formato de la fecha de AAAA-MM-DD a DD/MM/AAAA
+        const fechaLimpia = fechaCita.split('-').reverse().join('/');
+
+        const textoMensaje = 
+            `✨ *NUEVA SOLICITUD DE CITA* ✨%0A%0A` +
+            `👤 *Cliente:* ${nombreCliente}%0A` +
+            `📱 *WhatsApp:* ${whatsappCliente}%0A` +
+            `💆‍♀️ *Servicio:* ${servicioSeleccionado}%0A` +
+            `📅 *Fecha:* ${fechaLimpia}%0A` +
+            `⏰ *Hora:* ${horaCita} hrs%0A%0A` +
+            `_Quedo a la espera de tu confirmación para agendar y realizar el anticipo._`;
+
+        window.open(`https://wa.me/${numeroWhatsAppSariStudio}?text=${textoMensaje}`, '_blank');
+    });
+});
+
+// ==========================================
+// 7. FUNCIÓN GLOBAL NAVEGACIÓN DE TABS
+// ==========================================
+function openCategory(evt, categoryName) {
+    const tabcontents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].classList.remove("active-content");
     }
 
-    .tab-link.active {
-        font-weight: 600 !important;
-        background-color: #fbcad7 !important;
-        box-shadow: 0 4px 10px rgba(251, 202, 215, 0.35) !important;
+    const tablinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
     }
 
-    .titulo-seccion { font-size: 26px; margin-bottom: 30px; }
-    .servicio-card { padding: 20px 16px; border-radius: 14px; }
-    .servicio-cabecera h4 { font-size: 15px; }
-    .precio { font-size: 15px; }
-    .servicio-desc { font-size: 13px; }
-    .servicio-detalles { gap: 12px; font-size: 11px; }
-
-    .politicas-section { margin: 0 10px; }
-    .politicas-grid { grid-template-columns: 1fr; gap: 15px; }
-    .politica-item { padding: 18px; border-radius: 12px; }
-
-    .promo-section { padding: 30px 15px; }
-    .glass-mirror-container { padding: 30px 15px; border-radius: 20px; }
-    .glass-card-inner { padding: 25px 20px; border-radius: 16px; }
-    .glass-card-inner h3 { font-size: 22px; }
-    .glass-card-inner p { font-size: 13px; }
-
-    .faq-section { padding: 45px 15px; }
-    .faq-question { padding: 16px; font-size: 13.5px; }
-    .faq-answer p { padding: 0 16px 16px; font-size: 13px; }
-
-    .agenda-section { padding: 40px 15px; }
-    .form-beauty { padding: 25px 20px; border-radius: 16px; }
-    .fila-doble { flex-direction: column; gap: 0; }
+    document.getElementById(categoryName).classList.add("active-content");
+    evt.currentTarget.classList.add("active");
 }

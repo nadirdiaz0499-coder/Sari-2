@@ -31,12 +31,15 @@
         </nav>
     </header>
 
-    <!-- SECCIÓN HERO (ANIMACIÓN DE MIRADA CONTROLADA POR SCROLL) -->
-    <section class="hero" id="hero-trigger">
-        <!-- Capa de fondo con la imagen premium de pestañas y cejas -->
-        <div class="hero-bg-parallax" id="hero-bg"></div>
+    <!-- SECCIÓN HERO (FOTO ESTÁTICA + TIPOGRAFÍA INTERACTIVA STAGGER) -->
+    <section class="hero">
+        <!-- Foto de fondo unificada completa fija al 100% -->
+        <div class="hero-bg-unified"></div>
+        
+        <!-- Contenido textual con animación cinética en el título -->
         <div class="hero-content">
-            <h1>Miradas Mágicas</h1>
+            <!-- El id="animar-titulo" es el que JS segmentará en letras individuales -->
+            <h1 id="animar-titulo">Miradas Mágicas</h1>
             <p class="subtitulo">Diseños personalizados de pestañas y cejas que realzan tus facciones, cuidando siempre la salud de tus pestañas y cejas naturales.</p>
             <a href="#agendar" class="btn-principal">¡Aparta tu cita!</a>
         </div>
@@ -194,7 +197,7 @@
             <div id="tab-cejas" class="tab-content">
                 <div class="servicio-card">
                     <div class="servicio-cabecera"><h4>Diseño de Cejas</h4><span class="precio">$250</span></div>
-                    <p class="servicio-desc">Diseño de cejas totalmente personalizado a tus facciones y gustos. Incluye epilación con cera y Brow Spa.</p>
+                    <p class="servicio-desc">Diseño de cejas totalmente personalizado a tus facciones and gustos. Incluye epilación con cera y Brow Spa.</p>
                     <span class="micro-copy">✦ Incluye visajismo con calibrador para simetría perfecta</span>
                     <div class="servicio-detalles"><span>⏱️ 30 Min</span></div>
                 </div>
@@ -212,7 +215,7 @@
                 </div>
                 <div class="servicio-card">
                     <div class="servicio-cabecera"><h4>Cejas 4K</h4><span class="precio">$400</span></div>
-                    <p class="servicio-desc">Brow Lamination, aplicación de henna, diseño personalizado, epilación con cera y Brow Spa.</p>
+                    <p class="servicio-desc">Brow Lamination, application de henna, diseño personalizado, epilación con cera y Brow Spa.</p>
                     <span class="micro-copy">✦ El servicio premium absoluto para una ceja imponente y con volumen</span>
                     <div class="servicio-detalles"><span>⏱️ 1 Hra 30 Min</span><span>🗓️ Duración: 4 semanas</span></div>
                 </div>
@@ -370,7 +373,7 @@
                     <p id="smart-tip-text">Tip de cuidado previo...</p>
                 </div>
 
-                <!-- FILA DOBLE CON EL SELECCIONADOR DE HORA EN INTERVALOS DE 30 MIN -->
+                <!-- FILA DOBLE CON EL SELECCIONADOR DE HORA -->
                 <div class="fila-doble">
                     <div class="grupo-input">
                         <label for="fecha">Fecha</label>

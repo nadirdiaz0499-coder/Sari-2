@@ -17,6 +17,27 @@ document.addEventListener("DOMContentLoaded", () => {
     elementosReveal.forEach(elemento => arrancarEfecto.observe(elemento));
     setTimeout(() => { document.querySelector('.hero .reveal')?.classList.add('active'); }, 150);
 
+    // =================================================================
+    // 🚀 OPCIÓN 1 EXCLUSIVA: REVEAL DE ENFOQUE + PARALLAX POR SCROLL NATIVO
+    // =================================================================
+    const heroBg = document.getElementById('hero-bg');
+    
+    window.addEventListener('scroll', () => {
+        const valueScroll = window.scrollY;
+        
+        if (heroBg && valueScroll <= window.innerHeight) {
+            // A medida que bajan la pantalla, el desenfoque baja a 0 limpiamente
+            const blurValue = Math.max(10 - (valueScroll / 25), 0);
+            // Parallax vertical suave controlado únicamente por el scroll
+            const translateY = valueScroll * 0.30;
+            // Micro-ajuste de escala para evitar bordes blancos en el desfase
+            const scaleValue = 1.05 + (valueScroll * 0.00005);
+            
+            heroBg.style.filter = `blur(${blurValue}px)`;
+            heroBg.style.transform = `scale(${scaleValue}) translateY(${translateY}px)`;
+        }
+    });
+
     // ==========================================
     // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS
     // ==========================================

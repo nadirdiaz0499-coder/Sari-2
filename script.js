@@ -17,14 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
     elementosReveal.forEach(elemento => arrancarEfecto.observe(elemento));
 
     // =================================================================
-    // 🚀 ENGINE DE REVEAL TIPOGRÁFICO SINCRO: KINETIC CHARACTER STAGGER (OPCIÓN 1)
+    // 🚀 ENGINE DE REVEAL TIPOGRÁFICO SINCRO: KINETIC CHARACTER STAGGER
     // =================================================================
     const tituloNodo = document.getElementById('animar-titulo');
     if (tituloNodo) {
         const textoOriginal = tituloNodo.innerText.trim();
-        tituloNodo.innerHTML = ''; // Vaciamos el contenedor para inyectar los spans
+        tituloNodo.innerHTML = ''; 
 
-        // Recorremos caracter por caracter para segmentarlo dinámicamente
         for (let i = 0; i < textoOriginal.length; i++) {
             const char = textoOriginal[i];
             const span = document.createElement('span');
@@ -36,58 +35,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 span.innerText = char;
             }
             
-            // Calculamos el desfase exacto de milisegundos para el barrido de izquierda a derecha
             span.style.animationDelay = `${i * 0.05}s`;
             tituloNodo.appendChild(span);
         }
     }
 
-    // ==========================================
-    // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS
-    // ==========================================
+    // =================================================================
+    // 🔄 LÓGICA DEL SIMULADOR ANTES/DESPUÉS RECORREGIDA CON CLIP-PATH
+    // =================================================================
     const sliderContainer = document.getElementById('parallax-slider');
     const beforeLayer = document.getElementById('before-layer');
     const sliderHandle = document.getElementById('slider-handle');
 
     if (sliderContainer && beforeLayer && sliderHandle) {
-        const imgAfter = sliderContainer.querySelector('.img-after');
-        const imgBefore = sliderContainer.querySelector('.img-before');
-
-        const moverSlider = (clientX, clientY) => {
+        const moverSlider = (clientX) => {
             const rect = sliderContainer.getBoundingClientRect();
             const posicionX = clientX - rect.left;
             let porcentaje = (posicionX / rect.width) * 100;
 
+            // Bloqueamos los bordes para que no se desborde el handle
             if (porcentaje < 0) porcentaje = 0;
             if (porcentaje > 100) porcentaje = 100;
 
-            beforeLayer.style.width = `${porcentaje}%`;
+            // Movemos la barra divisoria físicamente
             sliderHandle.style.left = `${porcentaje}%`;
 
-            if(imgAfter && imgBefore) {
-                const fuerzaX = (clientX - rect.left - (rect.width / 2)) * 0.015;
-                const fuerzaY = (clientY - rect.top - (rect.height / 2)) * 0.025;
-                
-                imgAfter.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
-                imgBefore.style.backgroundPosition = `calc(50% + ${fuerzaX}px) calc(50% + ${fuerzaY}px)`;
-            }
+            // 🔥 TRUCO MÁGICO CLIP-PATH: En lugar de deformar el width, ocultamos los píxeles de lado a lado
+            // El formato es inset(arriba derecha abajo izquierda)
+            const clipRight = 100 - porcentaje;
+            beforeLayer.style.clipPath = `inset(0 ${clipRight}% 0 0)`;
+            beforeLayer.style.webkitClipPath = `inset(0 ${clipRight}% 0 0)`;
         };
 
-        sliderContainer.addEventListener('mousemove', (e) => moverSlider(e.clientX, e.clientY));
-        
+        // Eventos para Computadora (Mouse)
+        sliderContainer.addEventListener('mousemove', (e) => {
+            moverSlider(e.clientX);
+        });
+
+        // Eventos para Celulares (Touch)
         sliderContainer.addEventListener('touchmove', (e) => {
             if (e.touches && e.touches[0]) {
-                e.preventDefault(); 
-                moverSlider(e.touches[0].clientX, e.touches[0].clientY);
+                e.preventDefault(); // Detiene jalones de scroll raros del celular
+                moverSlider(e.touches[0].clientX);
             }
         }, { passive: false });
-        
-        sliderContainer.addEventListener('mouseleave', () => {
-            if(imgAfter && imgBefore) {
-                imgAfter.style.backgroundPosition = "center";
-                imgBefore.style.backgroundPosition = "center";
-            }
-        });
     }
 
     // ==========================================
@@ -222,26 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
             `💆‍♀️ *Servicio:* ${servicioSeleccionado}%0A` +
             `📅 *Fecha:* ${fechaLimpia}%0A` +
             `⏰ *Hora:* ${horaCita} hrs%0A%0A` +
-            `_Quedo a la espera de tu confirmación para agendar y realizar el anticipo._`;
+            `_Quedo a la espera de tu confirmación para agendar and realizar el anticipo._`;
 
         window.open(`https://wa.me/${numeroWhatsAppSariStudio}?text=${textoMensaje}`, '_blank');
     });
 });
-
-// ==========================================
-// 7. FUNCIÓN GLOBAL NAVEGACIÓN DE TABS
-// ==========================================
-function openCategory(evt, categoryName) {
-    const tabcontents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabcontents.length; i++) {
-        tabcontents[i].classList.remove("active-content");
-    }
-
-    const tablinks = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    document.getElementById(categoryName).classList.add("active-content");
-    evt.currentTarget.classList.add("active");
-}

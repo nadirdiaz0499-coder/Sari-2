@@ -15,28 +15,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }, opcionesObserver);
 
     elementosReveal.forEach(elemento => arrancarEfecto.observe(elemento));
-    setTimeout(() => { document.querySelector('.hero .reveal')?.classList.add('active'); }, 150);
 
     // =================================================================
-    // 🚀 OPCIÓN 1 EXCLUSIVA: REVEAL DE ENFOQUE + PARALLAX POR SCROLL NATIVO
+    // 🚀 ENGINE DE REVEAL TIPOGRÁFICO SINCRO: KINETIC CHARACTER STAGGER (OPCIÓN 1)
     // =================================================================
-    const heroBg = document.getElementById('hero-bg');
-    
-    window.addEventListener('scroll', () => {
-        const valueScroll = window.scrollY;
-        
-        if (heroBg && valueScroll <= window.innerHeight) {
-            // A medida que bajan la pantalla, el desenfoque baja a 0 limpiamente
-            const blurValue = Math.max(10 - (valueScroll / 25), 0);
-            // Parallax vertical suave controlado únicamente por el scroll
-            const translateY = valueScroll * 0.30;
-            // Micro-ajuste de escala para evitar bordes blancos en el desfase
-            const scaleValue = 1.05 + (valueScroll * 0.00005);
+    const tituloNodo = document.getElementById('animar-titulo');
+    if (tituloNodo) {
+        const textoOriginal = tituloNodo.innerText.trim();
+        tituloNodo.innerHTML = ''; // Vaciamos el contenedor para inyectar los spans
+
+        // Recorremos caracter por caracter para segmentarlo dinámicamente
+        for (let i = 0; i < textoOriginal.length; i++) {
+            const char = textoOriginal[i];
+            const span = document.createElement('span');
             
-            heroBg.style.filter = `blur(${blurValue}px)`;
-            heroBg.style.transform = `scale(${scaleValue}) translateY(${translateY}px)`;
+            if (char === ' ') {
+                span.classList.add('espacio-letra');
+                span.innerHTML = '&nbsp;';
+            } else {
+                span.innerText = char;
+            }
+            
+            // Calculamos el desfase exacto de milisegundos para el barrido de izquierda a derecha
+            span.style.animationDelay = `${i * 0.05}s`;
+            tituloNodo.appendChild(span);
         }
-    });
+    }
 
     // ==========================================
     // 2. LÓGICA DEL SIMULADOR ANTES/DESPUÉS
@@ -197,12 +201,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 6. ENVIAR FORMULARIO A WHATSAPP (CON TU NÚMERO DE PRUEBA)
+    // 6. ENVIAR FORMULARIO A WHATSAPP
     // ==========================================
     document.getElementById('formulario-cita')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Tu número de WhatsApp asignado para pruebas
         const numeroWhatsAppSariStudio = "527226899514"; 
 
         const nombreCliente = document.getElementById('nombre').value.trim();
@@ -211,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const fechaCita = document.getElementById('fecha').value;
         const horaCita = document.getElementById('hora').value;
 
-        // Cambia el formato de la fecha de AAAA-MM-DD a DD/MM/AAAA
         const fechaLimpia = fechaCita.split('-').reverse().join('/');
 
         const textoMensaje = 

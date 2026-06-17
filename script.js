@@ -130,8 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         resultadoTexto.innerText = "Ritual Magic (Lashes + Brows) 🧚‍♀️";
                         respuestasQuiz.matchVal = "Combo Magic ($500)";
                     } else {
-                        resultadoTexto.innerText = "Extensiones Volumen Hawaiano 🌸";
-                        respuestasQuiz.matchVal = "Volumen Hawaiano ($430)";
+                        resultadoTexto.innerText = "Teddy Lashes 🌸";
+                        respuestasQuiz.matchVal = "Teddy Lashes ($500)";
                     }
                 }
             });
@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Lash Lifting ($300)": "Para el Lash Lifting, acudir con tus pestañas totalmente limpias y sin rímel agiliza el proceso.",
         "Extensiones Clásicas ($500)": "Evita aplicar productos oleosos o rímel en los ojos 24 horas antes para garantizar la máxima retención del set.",
         "Volumen Hawaiano ($430)": "¡Una gran elección! Agenda tus retoques entre los 15 y 18 días para mantener tu mirada densa y perfecta.",
+        "Teddy Lashes ($500)": "Al elegir Teddy Lashes color café, recuerda que los retoques sugeridos son entre los 15 y 18 días ($350) para mantener ese volumen sutil e impecable.",
         "Efecto Máscara ($500)": "Este diseño aporta un fondo oscuro genial. Recuerda no mojar tus ojos durante las primeras 24 horas de la aplicación.",
         "Cejas 4K ($400)": "Evita desmaquillantes bifásicos o exfoliantes sobre la ceja para prolongar el sombreado de la henna orgánica.",
         "Combo Magic ($500)": "Al ser un servicio de aplicación simultánea doble, optimizamos tu tiempo al máximo. ¡Ven lista para relajarte!"
@@ -181,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         
         // Tu número de WhatsApp asignado para pruebas
-        const numeroWhatsAppSariStudio = "527224173650"; 
+        const numeroWhatsAppSariStudio = "527226899514"; 
 
         const nombreCliente = document.getElementById('nombre').value.trim();
         const whatsappCliente = document.getElementById('whatsapp').value.trim();

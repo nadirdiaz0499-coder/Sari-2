@@ -17,31 +17,31 @@ document.addEventListener("DOMContentLoaded", () => {
     elementosReveal.forEach(elemento => arrancarEfecto.observe(elemento));
 
     // =================================================================
-    // 🚀 ENGINE DE REVEAL TIPOGRÁFICO SINCRO: KINETIC CHARACTER STAGGER
+    // 2. ENGINE DE REVEAL TIPOGRÁFICO SINCRO: KINETIC CHARACTER STAGGER
     // =================================================================
     const tituloNodo = document.getElementById('animar-titulo');
     if (tituloNodo) {
         const textoOriginal = tituloNodo.innerText.trim();
-        tituloNodo.innerHTML = ''; 
+        tituloNodo.innerHTML = '';
 
         for (let i = 0; i < textoOriginal.length; i++) {
             const char = textoOriginal[i];
             const span = document.createElement('span');
-            
+
             if (char === ' ') {
                 span.classList.add('espacio-letra');
                 span.innerHTML = '&nbsp;';
             } else {
                 span.innerText = char;
             }
-            
+
             span.style.animationDelay = `${i * 0.05}s`;
             tituloNodo.appendChild(span);
         }
     }
 
     // =================================================================
-    // 🔄 LÓGICA DEL SIMULADOR ANTES/DESPUÉS RECORREGIDA CON CLIP-PATH
+    // 3. SIMULADOR ANTES/DESPUÉS CON CLIP-PATH
     // =================================================================
     const sliderContainer = document.getElementById('parallax-slider');
     const beforeLayer = document.getElementById('before-layer');
@@ -53,36 +53,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const posicionX = clientX - rect.left;
             let porcentaje = (posicionX / rect.width) * 100;
 
-            // Bloqueamos los bordes para que no se desborde el handle
             if (porcentaje < 0) porcentaje = 0;
             if (porcentaje > 100) porcentaje = 100;
 
-            // Movemos la barra divisoria físicamente
             sliderHandle.style.left = `${porcentaje}%`;
 
-            // 🔥 TRUCO MÁGICO CLIP-PATH: En lugar de deformar el width, ocultamos los píxeles de lado a lado
-            // El formato es inset(arriba derecha abajo izquierda)
             const clipRight = 100 - porcentaje;
             beforeLayer.style.clipPath = `inset(0 ${clipRight}% 0 0)`;
             beforeLayer.style.webkitClipPath = `inset(0 ${clipRight}% 0 0)`;
         };
 
-        // Eventos para Computadora (Mouse)
         sliderContainer.addEventListener('mousemove', (e) => {
             moverSlider(e.clientX);
         });
 
-        // Eventos para Celulares (Touch)
         sliderContainer.addEventListener('touchmove', (e) => {
             if (e.touches && e.touches[0]) {
-                e.preventDefault(); // Detiene jalones de scroll raros del celular
+                e.preventDefault();
                 moverSlider(e.touches[0].clientX);
             }
         }, { passive: false });
     }
 
     // ==========================================
-    // 3. LÓGICA DEL ACCORDION DE PREGUNTAS (FAQ)
+    // 4. ACCORDION DE PREGUNTAS (FAQ)
     // ==========================================
     const faqQuestions = document.querySelectorAll('.faq-question');
 
@@ -107,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 4. LÓGICA DEL QUIZ DE LOOK PERSONALIZADO
+    // 5. QUIZ DE LOOK PERSONALIZADO
     // ==========================================
     const pasosQuiz = document.querySelectorAll('.quiz-step');
     let respuestasQuiz = {};
@@ -118,13 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener('click', () => {
                 const pasoActual = parseInt(paso.getAttribute('data-step'));
                 const valorSeleccionado = btn.getAttribute('data-value');
-                
+
                 if (pasoActual === 1) respuestasQuiz.efecto = valorSeleccionado;
                 if (pasoActual === 2) respuestasQuiz.enfoque = valorSeleccionado;
                 if (pasoActual === 3) respuestasQuiz.prioridad = valorSeleccionado;
 
                 paso.classList.remove('active');
-                
+
                 const siguientePaso = document.querySelector(`[data-step="${pasoActual + 1}"]`);
                 if (siguientePaso) {
                     siguientePaso.classList.add('active');
@@ -164,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 5. RECOMENDADOR DINÁMICO DE TIPS
+    // 6. RECOMENDADOR DINÁMICO DE TIPS
     // ==========================================
     const selectServicio = document.getElementById('servicio');
     const tipBox = document.getElementById('smart-tip-box');
@@ -192,11 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 6. ENVIAR FORMULARIO A WHATSAPP
+    // 7. ENVIAR FORMULARIO A WHATSAPP
     // ==========================================
     document.getElementById('formulario-cita')?.addEventListener('submit', function(e) {
         e.preventDefault();
-        const numeroWhatsAppSariStudio = "527226899514"; 
+        const numeroWhatsAppSariStudio = "527226899514";
 
         const nombreCliente = document.getElementById('nombre').value.trim();
         const whatsappCliente = document.getElementById('whatsapp').value.trim();
@@ -206,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const fechaLimpia = fechaCita.split('-').reverse().join('/');
 
-        const textoMensaje = 
+        const textoMensaje =
             `✨ *NUEVA SOLICITUD DE CITA* ✨%0A%0A` +
             `👤 *Cliente:* ${nombreCliente}%0A` +
             `📱 *WhatsApp:* ${whatsappCliente}%0A` +
@@ -217,4 +211,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         window.open(`https://wa.me/${numeroWhatsAppSariStudio}?text=${textoMensaje}`, '_blank');
     });
+
+    // ==========================================
+    // 8. TABS DE CATEGORÍAS DE SERVICIOS
+    // ==========================================
+    window.openCategory = function(event, categoryId) {
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active-content');
+        });
+
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        document.getElementById(categoryId).classList.add('active-content');
+        event.currentTarget.classList.add('active');
+    };
+
 });

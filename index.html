@@ -31,9 +31,11 @@
         </nav>
     </header>
 
-    <!-- SECCIÓN HERO -->
-    <section class="hero">
-        <div class="hero-content reveal">
+    <!-- SECCIÓN HERO (ANIMACIÓN DE MIRADA CONTROLADA POR SCROLL) -->
+    <section class="hero" id="hero-trigger">
+        <!-- Capa de fondo desacoplada con la imagen de pestañas y cejas seleccionada -->
+        <div class="hero-bg-parallax" id="hero-bg"></div>
+        <div class="hero-content">
             <h1>Miradas Mágicas</h1>
             <p class="subtitulo">Diseños personalizados de pestañas y cejas que realzan tus facciones, cuidando siempre la salud de tus pestañas y cejas naturales.</p>
             <a href="#agendar" class="btn-principal">¡Aparta tu cita!</a>
@@ -127,7 +129,7 @@
             <div class="tabs-nav-container reveal">
                 <button class="tab-link active" onclick="openCategory(event, 'tab-pestanas')">Pestañas</button>
                 <button class="tab-link" onclick="openCategory(event, 'tab-cejas')">Cejas</button>
-                <button class="tab-link" onclick="openCategory(event, 'tab-experiencias')">Experiencias Sari</button>
+                <button class="tab-link" onclick="event, openCategory(event, 'tab-experiencias')">Experiencias Sari</button>
                 <button class="tab-link" onclick="openCategory(event, 'tab-labios')">Labios</button>
             </div>
 
@@ -151,7 +153,6 @@
                     <span class="magic-badge" style="margin-top: 8px; font-size: 11px;">★ Más Popular</span>
                     <div class="servicio-detalles"><span>⏱️ 2 Hrs 30 Min</span><span>🔄 Retoque (15-18 días): $300 | Después de 19 días: $430</span></div>
                 </div>
-                <!-- FIX: Se removió la clase combo-highlight para emparejar el diseño con los demás -->
                 <div class="servicio-card">
                     <div class="servicio-cabecera"><h4>Teddy Lashes (Hawaiano Café)</h4><span class="precio">$500</span></div>
                     <p class="servicio-desc">Extensiones de pestañas volumen hawaiano color café. Técnica que consiste en aplicar fibras tecnológicas “yy” creando un volumen sutil, dando la apariencia de pestañas más largas y pobladas con un estilo natural.</p>
@@ -211,7 +212,7 @@
                 </div>
                 <div class="servicio-card">
                     <div class="servicio-cabecera"><h4>Cejas 4K</h4><span class="precio">$400</span></div>
-                    <p class="servicio-desc">Brow Lamination, aplicación de henna, diseño personalizado, epilación con cera y Brow Spa.</p>
+                    <p class="servicio-desc">Brow Lamination, application de henna, diseño personalizado, epilación con cera y Brow Spa.</p>
                     <span class="micro-copy">✦ El servicio premium absoluto para una ceja imponente y con volumen</span>
                     <div class="servicio-detalles"><span>⏱️ 1 Hra 30 Min</span><span>🗓️ Duración: 4 semanas</span></div>
                 </div>
@@ -297,7 +298,7 @@
                 <div class="faq-item">
                     <button class="faq-question">¿Cuál es la diferencia entre Lash Lifting y Extensiones?</button>
                     <div class="faq-answer">
-                        <p>El Lash Lifting trabaja sobre tus propias pestañas, estirándolas y rizándolas desde la raíz para un efecto natural de rímel. Las extensiones son fibras sintéticas ultra ligeras que se adhieren una a una para añadir longitud, grosor y volumen personalizado.</p>
+                        <p>El Lash Lifting trabaja sobre tus propias pestañas, estirándolas y rizándolas desde la raíz para un efecto natural de rímel. Las extensiones de pestañas son fibras sintéticas ultra ligeras que se adhieren una a una para añadir longitud, grosor y volumen personalizado.</p>
                     </div>
                 </div>
                 <div class="faq-item">

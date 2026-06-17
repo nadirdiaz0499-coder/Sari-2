@@ -60,9 +60,9 @@ nav a:hover { color: #b1c57c; }
     border-radius: 25px;
 }
 
-/* --- HERO CON EFECTO REVEAL CINEMATOGRÁFICO DE MIRADA --- */
+/* --- HERO PREMIUM: SECCIÓN MÁS ALTA + FOTO ESTÁTICA --- */
 .hero {
-    height: 85vh;
+    height: 95vh; /* Máxima proporción para lucir cejas y pestañas completas */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,51 +70,91 @@ nav a:hover { color: #b1c57c; }
     position: relative;
     overflow: hidden;
     padding: 0 20px;
+    background-color: #faf6f5;
 }
 
-/* Capa de fondo desacoplada para la foto de cejas y pestañas (CORREGIDA CON LA IMAGEN PREMIUM QUE MANDASTE) */
-.hero-bg-parallax {
+/* Foto de fondo fija sin filtros borrosos ni divisiones */
+.hero-bg-unified {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 115%; /* Más alto para dar espacio al movimiento de scroll */
-    background-image: linear-gradient(rgba(250, 246, 245, 0.45), rgba(250, 246, 245, 0.45)), 
-                      url('https://www.thelashlounge.com/wp-content/uploads/2023/06/lash-and-brow-close-up.png');
-    background-position: center center;
+    height: 100%;
+    background-image: url('https://www.thelashlounge.com/wp-content/uploads/2023/06/lash-and-brow-close-up.png');
     background-size: cover;
+    background-position: center 30%; /* Cuadra simétricamente la curvatura de la mirada */
     background-repeat: no-repeat;
-    filter: blur(10px); /* Desenfoque inicial elegante */
-    transform: scale(1.05);
-    transition: filter 0.15s ease-out, transform 0.1s ease-out, background-position 0.15s ease-out;
-    will-change: filter, transform, background-position;
     z-index: 1;
 }
 
+/* Velo sutil continuo de contraste */
+.hero-bg-unified::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(250, 246, 245, 0.42);
+    z-index: 2;
+}
+
+/* Contenido flotante */
 .hero-content { 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     position: relative;
-    z-index: 2; /* Flota sobre la imagen */
+    z-index: 3; 
 }
 
+/* --- 🔥 ANIMACIÓN TIPOGRÁFICA OPCIÓN 1: STAGGER CHARACTER --- */
 .hero-content h1 { 
-    font-size: 58px; 
+    font-size: 64px; 
     font-weight: 600; 
     line-height: 1.15; 
-    margin-bottom: 15px; 
-    text-shadow: 0 2px 10px rgba(250, 246, 245, 0.5);
+    margin-bottom: 18px; 
+    color: #222a23;
+    text-shadow: 0 4px 20px rgba(250, 246, 245, 0.9);
+    display: inline-block;
+}
+
+/* Cada letra individual inyectada por JS */
+.hero-content h1 span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px); /* Brota desde abajo hacia arriba */
+    animation: brotarLetra 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Espacio manual para separar las palabras cortadas */
+.hero-content h1 span.espacio-letra {
+    width: 14px;
+}
+
+@keyframes brotarLetra {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .subtitulo {
-    font-size: 16.5px;
+    font-size: 17.5px;
     color: #1e2520;
-    max-width: 550px;
+    max-width: 580px;
     margin: 0 auto 35px;
     line-height: 1.6;
     font-weight: 400;
-    text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.9);
+    text-shadow: 0px 2px 10px rgba(255, 255, 255, 0.95);
+    /* Retraso automático para que aparezca después de que el título termine de escribirse */
+    animation: fadeIn 0.8s ease-out 0.9s forwards;
+    opacity: 0;
+}
+
+.hero-content .btn-principal {
+    animation: fadeIn 0.8s ease-out 1.1s forwards;
+    opacity: 0;
 }
 
 .btn-principal {
@@ -183,7 +223,7 @@ nav a:hover { color: #b1c57c; }
 .resultado-highlight { font-size: 24px; font-weight: 700; color: #b1c57c; margin: 15px 0; }
 .resultado-sub { font-size: 13.5px; color: #525d54; margin-bottom: 20px; }
 
-/* --- PESTAÑAS DE CATEGORÍAS (TABS - ESCRITORIO) --- */
+/* --- PESTAÑAS DE CATEGORÍAS (TABS) --- */
 .tabs-nav-container { 
     display: flex; 
     justify-content: center; 
@@ -207,12 +247,10 @@ nav a:hover { color: #b1c57c; }
     font-weight: 500; 
     color: #525d54; 
     border-radius: 25px; 
-    cursor: pointer;  white-space: nowrap; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); 
+    cursor: pointer; white-space: nowrap; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
 .tab-link:hover { color: #222a23; }
-
-/* ROSA SARI PARA SECCIÓN ACTIVA EN ESCRITORIO */
 .tab-link.active { 
     background-color: #fbcad7; 
     color: #222a23; 
@@ -287,8 +325,8 @@ section { padding: 80px 8%; }
 .btn-enviar:hover { background-color: #9cb16b; }
 .info-footer-studio { margin-top: 30px; font-size: 13px; color: #607261; line-height: 1.6; }
 
-/* --- KEYFRAMES --- */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+/* --- KEYFRAMES COMPLEMENTARIOS --- */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes elegantShimmer { 0% { left: -150%; } 30% { left: 150%; } 100% { left: 150%; } }
 @keyframes flashGlint { 0% { left: -150%; } 100% { left: 150%; } }
@@ -304,9 +342,11 @@ footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size
     .logo-img { height: 60px; }
     nav a:not(.btn-nav) { display: none; } 
 
-    .hero { height: 75vh; padding: 0 16px; }
-    .hero-content h1 { font-size: 34px; margin-bottom: 12px; }
-    .subtitulo { font-size: 14px; margin-bottom: 25px; }
+    .hero { height: 85vh; padding: 0 16px; }
+    .hero-bg-unified { background-position: center 25%; }
+    .hero-content h1 { font-size: 42px; margin-bottom: 12px; }
+    .hero-content h1 span.espacio-letra { width: 8px; }
+    .subtitulo { font-size: 14.5px; margin-bottom: 25px; }
     .btn-principal { padding: 14px 35px; font-size: 13px; }
 
     .artist-section { padding: 60px 20px 30px; }

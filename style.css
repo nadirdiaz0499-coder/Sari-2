@@ -60,29 +60,61 @@ nav a:hover { color: #b1c57c; }
     border-radius: 25px;
 }
 
-/* --- HERO --- */
+/* --- HERO CON EFECTO REVEAL CINEMATOGRÁFICO DE MIRADA --- */
 .hero {
-    height: 80vh;
+    height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
+    overflow: hidden;
     padding: 0 20px;
-    background: linear-gradient(rgba(250, 246, 245, 0.55), rgba(250, 246, 245, 0.55)), 
-                url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1920') center/cover no-repeat;
 }
 
-.hero-content { display: flex; flex-direction: column; align-items: center; }
-.hero-content h1 { font-size: 54px; font-weight: 600; line-height: 1.15; margin-bottom: 15px; }
+/* Capa de fondo desacoplada para la foto de cejas y pestañas (CORREGIDA CON LA IMAGEN PREMIUM QUE MANDASTE) */
+.hero-bg-parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 115%; /* Más alto para dar espacio al movimiento de scroll */
+    background-image: linear-gradient(rgba(250, 246, 245, 0.45), rgba(250, 246, 245, 0.45)), 
+                      url('https://www.thelashlounge.com/wp-content/uploads/2023/06/lash-and-brow-close-up.png');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(10px); /* Desenfoque inicial elegante */
+    transform: scale(1.05);
+    transition: filter 0.15s ease-out, transform 0.1s ease-out, background-position 0.15s ease-out;
+    will-change: filter, transform, background-position;
+    z-index: 1;
+}
+
+.hero-content { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    position: relative;
+    z-index: 2; /* Flota sobre la imagen */
+}
+
+.hero-content h1 { 
+    font-size: 58px; 
+    font-weight: 600; 
+    line-height: 1.15; 
+    margin-bottom: 15px; 
+    text-shadow: 0 2px 10px rgba(250, 246, 245, 0.5);
+}
 
 .subtitulo {
-    font-size: 16px;
+    font-size: 16.5px;
     color: #1e2520;
-    max-width: 520px;
+    max-width: 550px;
     margin: 0 auto 35px;
     line-height: 1.6;
     font-weight: 400;
-    text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.9);
+    text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.9);
 }
 
 .btn-principal {
@@ -265,9 +297,7 @@ section { padding: 80px 8%; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size: 12px; color: #8fa091; }
 
-/* ==========================================
-   🚨 MEDIA QUERIES (OPTIMIZACIÓN MÓVIL TOTAL)
-   ========================================== */
+/* --- MEDIA QUERIES (OPTIMIZACIÓN MÓVIL TOTAL) --- */
 @media (max-width: 768px) {
     section { padding: 50px 20px; }
     header { padding: 10px 20px; }
@@ -295,9 +325,6 @@ footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size
     .btn-quiz-opt { padding: 14px 16px; font-size: 13px; border-radius: 10px; line-height: 1.4; }
     .resultado-highlight { font-size: 20px; }
 
-    /* =======================================================
-       🔥 SOLUCIÓN DEFINITIVA AL MENÚ DE SERVICIOS EN CELULAR
-       ======================================================= */
     .tabs-nav-container { 
         display: flex !important;
         justify-content: flex-start !important; 
@@ -310,42 +337,30 @@ footer { padding: 40px; text-align: center; background-color: #faf6f5; font-size
         max-width: 100% !important;
         width: 100% !important;
         background: rgba(96, 114, 97, 0.05) !important;
-        
-        /* Deslizamiento táctil de alta respuesta */
         -webkit-overflow-scrolling: touch !important; 
         scroll-snap-type: x mandatory;
-        
-        /* Matar barras de scroll visuales en todos los navegadores */
         -ms-overflow-style: none !important; 
         scrollbar-width: none !important;
         margin: 0 auto 30px !important;
     }
-    
-    .tabs-nav-container::-webkit-scrollbar { 
-        display: none !important; 
-        width: 0 !important;
-        height: 0 !important;
-    }
+    .tabs-nav-container::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
 
-    /* Forzar a las píldoras a mantenerse enteras en una sola línea */
     .tab-link { 
-        flex: 0 0 auto !important; /* Evita que el botón se comprima o achique */
+        flex: 0 0 auto !important; 
         display: inline-block !important;
         padding: 10px 22px !important; 
         font-size: 13px !important; 
         font-weight: 500 !important;
         border-radius: 20px !important;
         scroll-snap-align: start;
-        white-space: nowrap !important; /* Evita saltos de renglón internos */
+        white-space: nowrap !important; 
     }
 
-    /* Píldora activa pintada del rosa Sari en móvil */
     .tab-link.active {
         font-weight: 600 !important;
         background-color: #fbcad7 !important;
         box-shadow: 0 4px 10px rgba(251, 202, 215, 0.35) !important;
     }
-    /* ======================================================= */
 
     .titulo-seccion { font-size: 26px; margin-bottom: 30px; }
     .servicio-card { padding: 20px 16px; border-radius: 14px; }
